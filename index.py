@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 import requests
 
@@ -9,7 +8,7 @@ QUIZ_API_URL = "https://quizapi.io/api/v1/questions"
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return "Welcome to the Quiz App! Go to /quiz to start."
 
 @app.route("/quiz")
 def quiz():
@@ -31,3 +30,4 @@ def quiz():
 
 if __name__ == "__main__":
     app.run(debug=True)
+

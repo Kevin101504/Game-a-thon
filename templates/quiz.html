@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
 </head>
 <body>
     <h1>Quiz Questions</h1>
-    {% for question in questions %}
-        <div>
-            <h3>{{ question.question }}</h3>
-            <ul>
-                {% for key, value in question.answers.items() %}
-                    {% if value %}
-                        <li><input type="radio" name="q{{ loop.index0 }}"> {{ value }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-        <hr>
-    {% endfor %}
+    <div id="quiz-container">
+        {% for question in questions %}
+            <div class="question-container {% if loop.index != 1 %}hidden{% endif %}">
+                <h3>{{ question.question }}</h3>
+                <ul>
+                    {% for key, value in question.answers.items() %}
+                        {% if value %}
+                            <li>
+                                <input type="radio" name="q{{ loop.index0 }}" value="{{ key }}">
+                                {{ value }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="nav-buttons">
+        <button id="prev-btn" onclick="prevQuestion()" disabled>Previous</button>
+        <button id="check-ans" onlick="checkAnswers()">Checkans </button>
+        <button id="next-btn" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 </html>
